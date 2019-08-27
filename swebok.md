@@ -1,0 +1,14 @@
+2.1 Concorrência
+O design para simultaneidade diz respeito à decomposição colocando o software em processos, tarefas e threads e lidar com questões relacionadas à eficiência, atomicidade, sincronização e programação.
+
+2.7. Segurança
+O design de segurança está relacionado a como evitar divulgação não autorizada, criação, mudança, eliminação ou negação do acesso à informação e outros recursos. Também está preocupado com a forma de tolerar ataques ou violações relacionados à segurança por limitação de danos, serviço contínuo, excesso de velocidade reparação e recuperação, e falhando e recuperando com segurança. O controle de acesso é um conceito de segurança, e deve-se também assegurar a uso adequado da criptologia.
+
+3.1 Estruturas arquitetônicas e pontos de vista Diferentes facetas de alto nível de um design de software pode ser descrito e documentado. Essas facetas são freqüentemente chamados de visualizações: “Uma visualização representa uma parcial aspecto de uma arquitetura de software que mostra propriedades específicas de um sistema de software ”. Visualizações pertencem a problemas distintos associados ao software design - por exemplo, a visão lógica (satisfazendo requisitos funcionais) vs. a visão do processo (questões de concorrência) versus a visão física (distribuição questões de integração) versus a visão de desenvolvimento (como o design é dividido em unidades de implementação com representação explícita das dependências entre as unidades). Vários autores usam diferentes terminologias - como comportamental vs. funcional vs. visualizações estruturais vs. modelagem de dados. Em resumo, um design de software é um artefato multifacetado produzido pelo processo de design e geralmente composto por vistas relativamente independentes e ortogonais.
+
+3.3 Padrões de design
+
+Descrito de forma sucinta, um padrão é “um solução para um problema comum em um determinado contexto ”. Embora os estilos arquitetônicos possam ser vistos como padrões que descrevem a organização de alto nível do software, outros padrões de design podem ser usados para descrever detalhes em um nível inferior.
+
+7.4 Projeto Centrado na Estrutura de Dados
+O design centrado na estrutura de dados começa a partir dos dados estruturas que um programa manipula em vez de a função que ele executa. O engenheiro de software descreve primeiro as estruturas de dados de entrada e saída e depois desenvolve a estrutura de controle do programa com base nesses diagramas de estrutura de dados. Vários heurísticas foram propostas para lidar com casos - por exemplo, quando há uma incompatibilidade entre as estruturas de entrada e saída.
