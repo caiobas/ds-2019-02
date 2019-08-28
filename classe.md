@@ -13,3 +13,5 @@
 - (Software para Sistemas Ubiquos, Design de Software)
 - (Padrões de Arquitetura de Software)
 - (Testes de Software, Design de Software)
+
+**Opção de trabalho individual:** *3. Avaliação de expressões matemáticas só conhecidas em tempo de execução, mas posteriormente reutilizada inúmeras vezes, possivelmente ao longo de meses e anos. Neste caso, a expectativa é que a expressão possa ser compilada para bytecodes, em tempo de execução, oferecendo um ganho em desempenho. Nesta proposta, a biblioteca Javassist deve ser utilizada.*
