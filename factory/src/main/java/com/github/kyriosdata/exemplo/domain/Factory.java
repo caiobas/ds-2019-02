@@ -1,4 +1,4 @@
-package com.github.kyriosdata.exemplo.application.console;
+package com.github.kyriosdata.exemplo.domain;
 
 import java.lang.reflect.InvocationTargetException;
 

@@ -6,10 +6,6 @@ import java.lang.reflect.InvocationTargetException;
 
 import org.junit.jupiter.api.Test;
 
-import com.github.kyriosdata.exemplo.application.console.Aluno;
-import com.github.kyriosdata.exemplo.application.console.Factory;
-import com.github.kyriosdata.exemplo.application.console.Professor;
-
 public class FactoryTest {
 
 	@Test
