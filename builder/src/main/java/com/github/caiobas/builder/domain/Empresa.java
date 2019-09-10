@@ -135,6 +135,7 @@ public class Empresa {
      */
 	@Override
 	public String toString() {
+		// Evite a criação de tantos objetos intermediários. Para isto há o método String.format!
 		return "Razao Social:" + razaoSocial + " Nome Fantasia:" + nomeFantasia + " CNPJ:" + cnpj + " Area De Atuacao:" + areaDeAtuacao;
 	}
 }
