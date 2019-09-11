@@ -5,12 +5,12 @@ import com.github.caiobas.builder.domain.Empresa;
 public class Application {
 
 	public static void main(String[] args) {
-		Empresa.Builder empresaOtavio = new Empresa.Builder("Otavio LTDA")
+		Empresa.Builder builder = new Empresa.Builder("Otavio LTDA");
+		Empresa empresaOtavio = builder
 				.nomeFantasia("Otavio Bugigangas")
-				.cnpj("12.345.678-0009-12")
-				.areaDeAtuacao("Comércio");
+				.build();
 
-		empresaOtavio.toString();
+		System.out.println(empresaOtavio.toString());
 	}
 
 }

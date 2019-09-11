@@ -1,5 +1,10 @@
 package com.github.caiobas.builder.domain;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+
 public class Empresa {
 	
 	/**
@@ -20,7 +25,7 @@ public class Empresa {
     /**
      * Área de atuação da empresa.
      */
-    private String areaDeAtuacao;
+    private List<String> areasAtuacao;
 
     /**
      * Classe empregada para construir uma instância (immutable) da classe
@@ -30,7 +35,7 @@ public class Empresa {
     	private String razaoSocial;
     	private String nomeFantasia;
     	private String cnpj;
-    	private String areaDeAtuacao;
+    	private List<String> areasAtuacao = new ArrayList<>();
     	
     	/**
          * Ter a razão social é obrigatório.
@@ -67,11 +72,11 @@ public class Empresa {
         /**
          * Adiciona a área de atuação da empresa.
          *
-         * @param areaDeAtuacao A área de atuação da empresa.
+         * @param areasAtuacao A área de atuação da empresa.
     	 * @return 
          */
-        public Builder areaDeAtuacao(final String areaDeAtuacao) {
-            this.areaDeAtuacao = areaDeAtuacao;
+        public Builder areasAtuacao(final String areaAtuacao) {
+            areasAtuacao.add(areaAtuacao);
             return this;
         }
         
@@ -90,7 +95,7 @@ public class Empresa {
         razaoSocial = builder.razaoSocial;
         nomeFantasia = builder.nomeFantasia;
         cnpj = builder.cnpj;
-        areaDeAtuacao = builder.areaDeAtuacao;
+        areasAtuacao = Collections.unmodifiableList(builder.areasAtuacao);
     }
     
     /**
@@ -125,8 +130,8 @@ public class Empresa {
      *
      * @return A área de atuação da empresa.
      */
-    public String getAreaDeAtuação() {
-        return areaDeAtuacao;
+    public List<String> getAreasAtuacao() {
+        return areasAtuacao;
     }
 
     /**
@@ -135,6 +140,7 @@ public class Empresa {
      */
 	@Override
 	public String toString() {
-		return "Razao Social:" + razaoSocial + " Nome Fantasia:" + nomeFantasia + " CNPJ:" + cnpj + " Area De Atuacao:" + areaDeAtuacao;
+		return String.format("Razao Social:%s Nome Fantasia:%s CNPJ:%s Areas De Atuacao:%s",
+				razaoSocial, nomeFantasia, cnpj, areasAtuacao);
 	}
 }
