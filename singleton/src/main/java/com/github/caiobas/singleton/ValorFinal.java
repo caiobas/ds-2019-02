@@ -5,14 +5,17 @@ public class ValorFinal {
 	private static double porcentagem = 20;
 	public static double valorFinal; 
 	
-	private ValorFinal() {
-		valorFinal = Pedidos.valor * porcentagem;
+	private ValorFinal(double valor) {
+		valorFinal = valor * porcentagem;
 	}
 	
 	private static final ValorFinal INSTANCIA = criaInstancia();
 	
 	private static ValorFinal criaInstancia() {
-		return new ValorFinal();
+		// Em cenário real o valor seria obtido de fonte externa, talvez.
+		final double valor = 12.3;
+
+		return new ValorFinal(valor);
 	}
 	
 	public static ValorFinal getInstance() {
