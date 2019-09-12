@@ -2,7 +2,7 @@ package com.github.caiobas.singleton;
 
 public class ValorFinal {
 		
-	private static double porcentagem = 20;
+	private final static double porcentagem = 20;
 	private static double valorFinal;
 	
 	private ValorFinal(double valor) {
@@ -24,5 +24,9 @@ public class ValorFinal {
 	
 	public static double getPorcentagem() {
 		return porcentagem;
+	}
+
+	public static double getValorFinal() {
+		return valorFinal;
 	}
 }
