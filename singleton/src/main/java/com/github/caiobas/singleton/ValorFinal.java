@@ -3,7 +3,7 @@ package com.github.caiobas.singleton;
 public class ValorFinal {
 		
 	private static double porcentagem = 20;
-	public static double valorFinal; 
+	private static double valorFinal;
 	
 	private ValorFinal(double valor) {
 		valorFinal = valor * porcentagem;
