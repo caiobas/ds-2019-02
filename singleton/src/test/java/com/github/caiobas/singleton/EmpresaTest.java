@@ -1,4 +1,4 @@
-package com.github.caiobas.builder.domain;
+package com.github.caiobas.singleton;
 
 import static org.junit.jupiter.api.Assertions.*;
 
