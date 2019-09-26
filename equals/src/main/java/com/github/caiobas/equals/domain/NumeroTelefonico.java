@@ -25,6 +25,9 @@ public class NumeroTelefonico {
 	        if(obj instanceof NumeroTelefonico){
 	            NumeroTelefonico objNumeroTelefonico = (NumeroTelefonico) obj;
 
+		    // FIXME induzi equivocadamente o uso do ==, contudo, lembra-se da pergunta do Werber?
+		    // Qual a diferença entre == e equals? Testes com o uso do ==, conforme abaixo, devem 
+		    // falhar. O correto é this.codigoPais.equals(objNumeroTelefonico.codigoPais).
 	            return this.codigoPais == objNumeroTelefonico.codigoPais &&
 	                    this.codigoEstado == objNumeroTelefonico.codigoEstado &&
 	                    this.numeroTelefone == objNumeroTelefonico.numeroTelefone;
