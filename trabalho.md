@@ -1,16 +1,3 @@
-Basicamente uma expressão ------ e um dicionario (hashmap) de string e double (EXEMPLO: x, 2)
-
-A partir da String recebida calcular hascode para identificar se existe ou nao a expressao
-
-1 Classe base com metodo calcule
-2 copiar e alterar nome (nome seria numero do hash?)e adicionar doubles e alterar return
-3 Carregar classe x
-4 Criar uma instancia via reflexao, definir o valor das variaveis e chamar o metodo calcula
-5 Referenciar a instancia
-
-Salvar todas as expressoes em disco, pois se ficar na memoria e ter que compilar denovo perde desempenho
-
-
 Descrição do módulo:
 Avaliação de expressões matemáticas só conhecidas em tempo de execução, mas posteriormente reutilizada inúmeras vezes, possivelmente ao longo de meses e anos. Neste caso, a expectativa é que a expressão possa ser compilada para bytecodes, em tempo de execução, oferecendo um ganho em desempenho. Nesta proposta, a biblioteca ASM deve ser utilizada.
 
@@ -24,22 +11,76 @@ R4 - A expressão matemática deverá ter um identificador ao ser armazenada, pa
 Design:
 1 - Deve-se criar uma classe Main aonde será executado o código para receber os dados da expressão.
 2 - Deve-se criar uma classe base ExpBase com o método calcule() que retorna um double.
-3 - Ao ser recebida uma expressão se deve calcular o hashcode da mesma para verificar se a expressão já foi passada anteriormente ou não.
-4 - Caso a expressão recebida nunca tenha sido utilizada, deve ser usada a biblioteca ASM para copiar a classe ExpBase e alterar o retorno do método calcule() para que siga as especificações da expressão. Feito isso, deve ser alterado o nome da nova classe para Exp###, aonde ### é o número do hashcode da expressão.
-5 - Caso a expressão recebida tenha sido utilizada, deve ser usado o Java Reflection para criar uma instância da mesma e chamar o método calcule() passando os valores (double) a serem utilizados naquela expressão.
-6 - As expressões convertidas para bytecode devem ser armazenadas em disco para que possam ser acessadas posteriormente para serem reutilizadas.
+3 - Ao ser recebida uma String de uma expressão, se deve calcular o hashcode da mesma para verificar se a expressão já foi passada anteriormente ou não.
+4 - Caso a expressão recebida nunca tenha sido utilizada, deve ser usada a biblioteca ASM para criar uma classe dinamicamente e criar o metodo calcule() para que siga as especificações da expressão. A expressão deve ser transformada em bytecode. Segue trecho de código:
 
+public static void realize(String classe, String metodo) throws NoSuchMethodException,
+            InvocationTargetException, IllegalAccessException, IOException {
+        ClassWriter cw = new ClassWriter(0);
+        cw.visit(V11, ACC_PUBLIC, classe, null, "java/lang/Object", null);
+
+        // Depende da quantidade de variáveis empregadas na expressão
+        String descriptor = "(DD)D";
+
+        MethodVisitor mtd = cw.visitMethod(ACC_PUBLIC + ACC_STATIC, metodo,
+                descriptor, null, null);
+        mtd.visitCode();
+
+        // -------------- START -----------------------
+        // Executa operações conforme notação pós-fixada da expressão
+        // Este trecho terá que ser construído dinamicamente a partir
+        // da expressão fornecida.
+
+        mtd.visitVarInsn(DLOAD, x);
+        mtd.visitVarInsn(DLOAD, y);
+        // Esta linha executa a operação matemática x + y
+        mtd.visitInsn(DADD);
+
+        // Multiplica resultado da adição por 200 (2E2)
+        mtd.visitLdcInsn(2e2);
+        mtd.visitInsn(DMUL);
+
+        // ------------- END --------------------------
+
+        mtd.visitInsn(DRETURN);
+        mtd.visitMaxs(4, 4);
+        mtd.visitEnd();
+        cw.visitEnd();
+
+         byte[] bytecodes = cw.toByteArray();
+
+        Path dirCorrente = FileSystems.getDefault().getPath(".");
+        final Path path = Path.of(dirCorrente.toString(), classe + ".class");
+
+        try (FileOutputStream outputStream =
+                     new FileOutputStream(path.toString())) {
+            outputStream.write(bytecodes);
+        }
+
+    OBS: Vale lembrar que para alterar o metodo calcule(), a expressão já deve estar transformada de infix para postfix por um compilador. Infix seria uma expressão do tipo 2 + 2. Enquanto a mesma expressão em postfix seria 2 2 +. 
+
+5 - Caso a expressão utilize a mesma variável mais de uma vez, armazenar ela quantas vezes for usada na expressão antes de iniciar a operação. Esta ação tem a finalidade de guardar o valor da variável para que não se perca ao executar uma operação.
+
+6 - Deve ser alterado o nome da nova classe para C####, aonde #### é o número do hashcode da expressão.
+7 - Caso a expressão recebida tenha sido utilizada, deve ser usado o Java Reflection para criar uma instância da mesma e chamar o método calcule() passando os valores (double) a serem utilizados naquela expressão. Segue trecho de código:
+
+private static double avaliaExpressao(String classe, byte[] bytecodes,
+                                          Object[] params) throws IllegalAccessException, InvocationTargetException {
+        // Carregando a classe e executando o método
+        DynamicClassLoader loader = new DynamicClassLoader();
+        Class<?> clazz = loader.defineClass(classe, bytecodes);
+
+        Method method = clazz.getDeclaredMethods()[0];
+
+        return (double) method.invoke(null, params);
+    }
+
+    private static class DynamicClassLoader extends ClassLoader {
+        public Class<?> defineClass(String name, byte[] b) {
+            return defineClass(name, b, 0, b.length);
+        }
+
+8 - As expressões convertidas para bytecode devem ser armazenadas em disco para que possam ser acessadas posteriormente para serem reutilizadas.
+9 - Ao se utilizar uma expressão já criada, o valor das variáveis deve ser passado via HashMap.
 
 -------------------------------------------------------------------------------------------------------
-
-Olhar classe do professor (Diretorio parser, classe Gerador). La tem uso do ASM explicado. 
-Sobre o design a grosso modo fica:
-receber a expressao como string
-criar classe dinamicamente utilizando Gerador do professor
-criar metodo pelo Gerador tbm
-utilizar compilador pra transformar de in-fix para post-fix (ou seja (x+y)*200    ->   xy+200*)
-Pegar esse post-fix e transformar em instruções (explicado no Gerador tbm)
-Se atentar a ordem de uso das variaveis (Pense em como implementar, por ordem de chegada não é bom... uma ideia seria armazenar elas primeiramente e apos isso executar a expressao para ter os valores salvos -> armazenar quantas vezes precisar no caso, pois quando precisar sera usada)
-DETALHE IMPORTANTE a classe devera se chamar C####.java aonde o #### é o número do hashcode 
-criar classe main que chama por reflexao a classe especifica (chama sempre baseado no hashcode da expressao, se existe chama. Se nao, cria e depois chama)
-Enviar variaveis da expressao por hashmap????
