@@ -62,11 +62,11 @@ public static void realize(String classe, String metodo) throws NoSuchMethodExce
 
 <h6>Observação: Vale lembrar que para alterar o metodo calcule(), a expressão já deve estar transformada de infix para postfix por um compilador. Infix seria uma expressão do tipo 2 + 2. Enquanto a mesma expressão em postfix seria 2 2 +.</h6> 
 
-5 - Caso a expressão utilize a mesma variável mais de uma vez, armazenar ela quantas vezes for usada na expressão antes de iniciar a operação. Esta ação tem a finalidade de guardar o valor da variável para que não se perca ao executar uma operação.
+<h5>D5</h5> Caso a expressão utilize a mesma variável mais de uma vez, armazenar ela quantas vezes for usada na expressão antes de iniciar a operação. Esta ação tem a finalidade de guardar o valor da variável para que não se perca ao executar uma operação.
+<h5>D6</h5> Deve ser alterado o nome da nova classe para C####, aonde #### é o número do hashcode da expressão.
+<h5>D7</h5> Caso a expressão recebida tenha sido utilizada, deve ser usado o Java Reflection para criar uma instância da mesma e chamar o método calcule() passando os valores (double) a serem utilizados naquela expressão. Segue trecho de código:
 
-6 - Deve ser alterado o nome da nova classe para C####, aonde #### é o número do hashcode da expressão.
-7 - Caso a expressão recebida tenha sido utilizada, deve ser usado o Java Reflection para criar uma instância da mesma e chamar o método calcule() passando os valores (double) a serem utilizados naquela expressão. Segue trecho de código:
-
+```
 private static double avaliaExpressao(String classe, byte[] bytecodes,
                                           Object[] params) throws IllegalAccessException, InvocationTargetException {
         // Carregando a classe e executando o método
@@ -82,8 +82,9 @@ private static double avaliaExpressao(String classe, byte[] bytecodes,
         public Class<?> defineClass(String name, byte[] b) {
             return defineClass(name, b, 0, b.length);
         }
+```
 
-8 - As expressões convertidas para bytecode devem ser armazenadas em disco para que possam ser acessadas posteriormente para serem reutilizadas.
-9 - Ao se utilizar uma expressão já criada, o valor das variáveis deve ser passado via HashMap.
+<h5>D8</h5> As expressões convertidas para bytecode devem ser armazenadas em disco para que possam ser acessadas posteriormente para serem reutilizadas.
+<h5>D9</h5> Ao se utilizar uma expressão já criada, o valor das variáveis deve ser passado via HashMap.
 
 -------------------------------------------------------------------------------------------------------
