@@ -1,18 +1,21 @@
-<h2>Descrição do módulo:</h2> Avaliação de expressões matemáticas só conhecidas em tempo de execução, mas posteriormente reutilizada inúmeras vezes, possivelmente ao longo de meses e anos. Neste caso, a expectativa é que a expressão possa ser compilada para bytecodes, em tempo de execução, oferecendo um ganho em desempenho. Nesta proposta, a biblioteca ASM deve ser utilizada.
+<h1>Trabalho de Design de Software</h1>
 
-<h2>Requisitos:</h2>
-<h5>R1</h5> - Uma expressão matemática deve ser recebida como uma sequência de caracteres e os valores associados as variáveis da mesma.
-<h5>R2</h5> - A expressão matemática recebida deve ser avaliada com finalidade de verificar se a mesma foi utilizada anteriormente ou não, e caso não utilizada, deve ser convertida para bytecodes através da biblioteca ASM e armazenada para ser reutilizada posteriormente.
-Observação: O uso da biblioteca ASM é uma restrição imposta ao desenvolvimento do módulo.
-R3 - A expressão matemática está restrita a valores numéricos (tipo Double em Java).
-R4 - A expressão matemática deverá ter um identificador ao ser armazenada, para que com este seja chamada posteriormente para uma execução.
+<h2>Descrição do módulo</h2> Avaliação de expressões matemáticas só conhecidas em tempo de execução, mas posteriormente reutilizada inúmeras vezes, possivelmente ao longo de meses e anos. Neste caso, a expectativa é que a expressão possa ser compilada para bytecodes, em tempo de execução, oferecendo um ganho em desempenho. Nesta proposta, a biblioteca ASM deve ser utilizada.
 
-Design:
-1 - Deve-se criar uma classe Main aonde será executado o código para receber os dados da expressão.
-2 - Deve-se criar uma classe base ExpBase com o método calcule() que retorna um double.
-3 - Ao ser recebida uma String de uma expressão, se deve calcular o hashcode da mesma para verificar se a expressão já foi passada anteriormente ou não.
-4 - Caso a expressão recebida nunca tenha sido utilizada, deve ser usada a biblioteca ASM para criar uma classe dinamicamente e criar o metodo calcule() para que siga as especificações da expressão. A expressão deve ser transformada em bytecode. Segue trecho de código:
+<h2>Requisitos</h2>
+<h5>R1</h5> Uma expressão matemática deve ser recebida como uma sequência de caracteres e os valores associados as variáveis da mesma.
+<h5>R2</h5> A expressão matemática recebida deve ser avaliada com finalidade de verificar se a mesma foi utilizada anteriormente ou não, e caso não utilizada, deve ser convertida para bytecodes através da biblioteca ASM e armazenada para ser reutilizada posteriormente.
+<h6>Observação: O uso da biblioteca ASM é uma restrição imposta ao desenvolvimento do módulo.</h6>
+<h5>R3</h5> A expressão matemática está restrita a valores numéricos (tipo Double em Java).
+<h5>R4</h5> A expressão matemática deverá ter um identificador ao ser armazenada, para que com este seja chamada posteriormente para uma execução.
 
+<h2>Design</h2>
+<h5>D1</h5> Deve-se criar uma classe Main aonde será executado o código para receber os dados da expressão.
+<h5>D2</h5> Deve-se criar uma classe base ExpBase com o método calcule() que retorna um double.
+<h5>D3</h5> Ao ser recebida uma String de uma expressão, se deve calcular o hashcode da mesma para verificar se a expressão já foi passada anteriormente ou não.
+<h5>D4</h5> Caso a expressão recebida nunca tenha sido utilizada, deve ser usada a biblioteca ASM para criar uma classe dinamicamente e criar o metodo calcule() para que siga as especificações da expressão. A expressão deve ser transformada em bytecode. Segue trecho de código:
+
+```
 public static void realize(String classe, String metodo) throws NoSuchMethodException,
             InvocationTargetException, IllegalAccessException, IOException {
         ClassWriter cw = new ClassWriter(0);
@@ -55,8 +58,9 @@ public static void realize(String classe, String metodo) throws NoSuchMethodExce
                      new FileOutputStream(path.toString())) {
             outputStream.write(bytecodes);
         }
+```
 
-    OBS: Vale lembrar que para alterar o metodo calcule(), a expressão já deve estar transformada de infix para postfix por um compilador. Infix seria uma expressão do tipo 2 + 2. Enquanto a mesma expressão em postfix seria 2 2 +. 
+<h6>Observação: Vale lembrar que para alterar o metodo calcule(), a expressão já deve estar transformada de infix para postfix por um compilador. Infix seria uma expressão do tipo 2 + 2. Enquanto a mesma expressão em postfix seria 2 2 +.</h6> 
 
 5 - Caso a expressão utilize a mesma variável mais de uma vez, armazenar ela quantas vezes for usada na expressão antes de iniciar a operação. Esta ação tem a finalidade de guardar o valor da variável para que não se perca ao executar uma operação.
 
