@@ -1,9 +1,8 @@
-<h2>Descrição do módulo:</h2>
-Avaliação de expressões matemáticas só conhecidas em tempo de execução, mas posteriormente reutilizada inúmeras vezes, possivelmente ao longo de meses e anos. Neste caso, a expectativa é que a expressão possa ser compilada para bytecodes, em tempo de execução, oferecendo um ganho em desempenho. Nesta proposta, a biblioteca ASM deve ser utilizada.
+<h2>Descrição do módulo:</h2> Avaliação de expressões matemáticas só conhecidas em tempo de execução, mas posteriormente reutilizada inúmeras vezes, possivelmente ao longo de meses e anos. Neste caso, a expectativa é que a expressão possa ser compilada para bytecodes, em tempo de execução, oferecendo um ganho em desempenho. Nesta proposta, a biblioteca ASM deve ser utilizada.
 
-Requisitos:
-R1 - Uma expressão matemática deve ser recebida como uma sequência de caracteres e os valores associados as variáveis da mesma.
-R2 - A expressão matemática recebida deve ser avaliada com finalidade de verificar se a mesma foi utilizada anteriormente ou não, e caso não utilizada, deve ser convertida para bytecodes através da biblioteca ASM e armazenada para ser reutilizada posteriormente.
+<h2>Requisitos:</h2>
+<h5>R1</h5> - Uma expressão matemática deve ser recebida como uma sequência de caracteres e os valores associados as variáveis da mesma.
+<h5>R2</h5> - A expressão matemática recebida deve ser avaliada com finalidade de verificar se a mesma foi utilizada anteriormente ou não, e caso não utilizada, deve ser convertida para bytecodes através da biblioteca ASM e armazenada para ser reutilizada posteriormente.
 Observação: O uso da biblioteca ASM é uma restrição imposta ao desenvolvimento do módulo.
 R3 - A expressão matemática está restrita a valores numéricos (tipo Double em Java).
 R4 - A expressão matemática deverá ter um identificador ao ser armazenada, para que com este seja chamada posteriormente para uma execução.
